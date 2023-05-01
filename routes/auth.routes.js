@@ -1,11 +1,11 @@
 const express = require("express");
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
-const User = require("../models/User.model");
 const { isAuthenticated } = require("./../middleware/jwt.middleware.js")
 const router = express.Router();
 const saltRounds = 10;
 const mongoose = require("mongoose")
+const User = require("../models/User.model")
 
 router.post('/signup', (req, res, next) => {
     const { email, password, name } = req.body;
@@ -64,3 +64,5 @@ router.post('/signup', (req, res, next) => {
         res.status(500).json({ message: "Internal Server Error" })
       });
   });
+
+  module.exports = router;
