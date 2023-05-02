@@ -1,25 +1,25 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-
+const User = require("../models/User.model")
 const Post = require("../models/Post.model");
 
 
 //  POST /api/posts  -  Creates a new post
-router.post("/posts", (req, res, next) => {
-  const { emotion, title, description } = req.body;
+router.post("/addpost", (req, res, next) => {
+  const { emotion, rating, description } = req.body;
 
-  Post.create({ emotion, title, description })
+  Post.create({ emotion, rating, description })
     .then((response) => res.json(response))
     .catch((err) => res.json(err));
 });
 
 //  GET /api/posts -  Retrieves all of the posts
-/* router.get("/posts", (req, res, next) => {
-  Post.find()
-   // .populate("tasks")
+router.get("/posts", (req, res, next) => {
+  User.find()
+    .populate("posts")
     .then((allPosts) => res.json(allPosts))
     .catch((err) => res.json(err));
-}); */
+}); 
 
 module.exports = router
