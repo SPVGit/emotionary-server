@@ -19,8 +19,12 @@ const postSchema = new Schema(
       ],
       required: true,
     },
-    title: String,
     description: String,
+    user: {type: Schema.Types.ObjectId, ref: "User"},
+    rating: {
+      type: String,
+      enum: ["1", "2", "3", "4", "5"], 
+    }
     // tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }],
     // owner will be added later on
   },
