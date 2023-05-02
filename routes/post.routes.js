@@ -23,9 +23,11 @@ router.post("/addpost", (req, res, next) => {
 
 //  GET /api/posts -  Retrieves all of the posts
 router.get("/posts", (req, res, next) => {
-  User.find()
-    .populate("posts")
-    .then((allPosts) => res.json(allPosts))
+  Post.find()
+  //  .populate("posts")
+    .then((allPosts) => {
+      console.log('allPosts', allPosts)
+      res.json(allPosts)})
     .catch((err) => res.json(err));
 }); 
 
