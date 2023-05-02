@@ -7,9 +7,16 @@ const Post = require("../models/Post.model");
 
 //  POST /api/posts  -  Creates a new post
 router.post("/addpost", (req, res, next) => {
-  const { emotion, rating, description } = req.body;
+  const { emotion, rating, description, userId } = req.body;
 
-  Post.create({ emotion, rating, description })
+  console.log(req.body);
+  
+  Post.create({ emotion, rating, description, user:userId})
+  .then((newPost) => {
+    return User.findByIdAndUpdate(userId, {
+      $push: { posts: newPost._id },
+    });
+  })
     .then((response) => res.json(response))
     .catch((err) => res.json(err));
 });
