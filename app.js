@@ -27,7 +27,7 @@ const authRouter = require("./routes/auth.routes");       //  <== IMPORT
 app.use("/auth", authRouter);
 
 const postRouter = require("./routes/post.routes");
-app.use("/api", isAuthenticated, postRouter)
+app.use("/", isAuthenticated, postRouter)
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

@@ -31,4 +31,18 @@ router.get("/posts", (req, res, next) => {
     .catch((err) => res.json(err));
 }); 
 
+//  GET /api/posts/:postId -  Retrieves a specific post by id
+router.get("/posts/:postId", (req, res, next) => {
+  const { postId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(postId)) {
+    res.status(400).json({ message: "Specified id is not valid" });
+    return;
+  }
+ // Each Post document has `tasks` array holding `_id`s of Task documents
+  // We use .populate() method to get swap the `_id`s for the actual Task documents
+  Post.findById(postId)
+    .then((post) => res.status(200).json(post))
+    .catch((error) => res.json(error)); 
+})
 module.exports = router
