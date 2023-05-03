@@ -39,13 +39,10 @@ router.get("/posts/:postId", (req, res, next) => {
     res.status(400).json({ message: "Specified id is not valid" });
     return;
   }
-
- /* // Each Post document has `tasks` array holding `_id`s of Task documents
+ // Each Post document has `tasks` array holding `_id`s of Task documents
   // We use .populate() method to get swap the `_id`s for the actual Task documents
-  Project.findById(projectId)
-    .populate("tasks")
-    .then((project) => res.status(200).json(project))
-    .catch((error) => res.json(error)); */
-});
-
+  Post.findById(postId)
+    .then((post) => res.status(200).json(post))
+    .catch((error) => res.json(error)); 
+})
 module.exports = router
