@@ -1,7 +1,7 @@
-const { Schema, model } = require("mongoose")
+const mongoose = require("mongoose")
+const { Schema, model } = mongoose
 
-// TODO: Please make sure you edit the User model to whatever makes sense in this case
-const userSchema = new Schema(
+const therapistSchema = new Schema(
   {
     email: {
       type: String,
@@ -15,8 +15,7 @@ const userSchema = new Schema(
       required: [true, "Password is required."],
     },
     name: { type: String, required: true },
-    posts: [{ type: Schema.Types.ObjectId, ref: "Posts" }],
-    therapist: { type: Schema.Types.ObjectId, ref: "Therapist" },
+    users: [{ type: Schema.Types.ObjectId, ref: "Users" }],
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
@@ -24,6 +23,6 @@ const userSchema = new Schema(
   }
 )
 
-const User = model("User", userSchema)
+const Therapist = model("Therapist", therapistSchema)
 
-module.exports = User
+module.exports = Therapist
