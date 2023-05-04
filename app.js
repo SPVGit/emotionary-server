@@ -29,6 +29,9 @@ app.use("/auth", authRouter);
 const postRouter = require("./routes/post.routes");
 app.use("/", isAuthenticated, postRouter)
 
+const indexRouter = require("./routes/index.routes");
+app.use("/", isAuthenticated, indexRouter)
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
