@@ -45,4 +45,19 @@ router.get("/posts/:postId", (req, res, next) => {
     .then((post) => res.status(200).json(post))
     .catch((error) => res.json(error)); 
 })
+
+// PUT Update Post
+router.put("/posts/edit/:postId", (req, res, next) => {
+  const { postId } = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(postId)) {
+    res.status(400).json({ message: "Specified id is not valid" });
+    return;
+  }
+
+  Post.findByIdAndUpdate(postId, req.body, {new: true })
+    .then((updatedPost)=> res.json(updatedPost))
+    .catch((error)=> res.json(error))
+}) 
+
 module.exports = router
