@@ -68,22 +68,21 @@ router.delete("/posts/:postId", (req, res, next) => {
         res.status(400).json({ message: "Specified id is not valid" });
     return;
     }
-  //  Post.deleteOne({_id: ObjectId(postId)})
-//  User.updateMany({}, {$pull: {posts: ObjectId(`${postId}`)}})
 
+ let userId = Post.user 
+ console.log("userId", userId)
    Post.findByIdAndRemove(postId)
-    .then(() =>
-/*  User.find()
-        .then((user)=> {
-          if (user.posts) {
-
-            console.log("user posts", user.posts)
-          } else {console.log('user', user)}
-        })  */
-      res.json({
-        message: `Post with ${postId} is removed successfully.`,
-      })
-   )
-    .catch((error) => res.json(error));
+   .then(() => {
+return User.updateMany({}, {$pull: {posts: postId}})
+   .then(() => {
+        res.json({
+          message: `Post with ${postId} is removed from User posts array and from Post collection successfully.`,
+        })
+  })
+      .catch((error) => {
+        res.json(error);
+      });
+  })
+  .catch((error) => res.json(error));
 });
 module.exports = router;
