@@ -5,18 +5,21 @@ const activitySchema = new Schema(
   {
     title: {
         type: String,
-        enum: [
-            "Keep Physically Active",
-            "Avoid alcohol and recreational drugs",
-            "Quit smoking", 
-            "Cut back or quit drinking caffeinated beverages",
-            "Do meditation",
-            "Do some Yoga",
-            "Make sleeping a priority",
-            "Eat healthy food",
-            "Socialize",
-            "Live in the moment as much as you can"
-        ]
+  /*      enum: [
+            "physically-active",
+            "avoid-alcohol",
+            "quit-smoking",
+            "quit-drinking",
+            "meditation",
+            "yoga",
+            "sleeping",
+            "healthy-food",
+            "socialize",
+            "in-the-moment"
+        ] */
+    },
+    chooseActivity: {
+      type: String,
     },
     level: {
       type: String,
@@ -40,4 +43,5 @@ const activitySchema = new Schema(
   }
 );
 
-module.exports = model("Post", postSchema);
+module.exports = model("Activity", activitySchema);
+

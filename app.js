@@ -29,6 +29,9 @@ app.use("/auth", authRouter);
 const postRouter = require("./routes/post.routes");
 app.use("/", isAuthenticated, postRouter)
 
+const activityRouter = require("./routes/activity.routes");
+app.use("/", isAuthenticated, activityRouter)
+
 const indexRouter = require("./routes/index.routes");
 app.use("/", isAuthenticated, indexRouter)
 

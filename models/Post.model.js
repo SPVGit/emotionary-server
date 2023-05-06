@@ -13,7 +13,7 @@ const postSchema = new Schema(
         "calm",
         "sad",
         "anxious",
-        "hurt",
+        "angry",
         "embarrassed",
         "depressed",
       ],
@@ -24,9 +24,8 @@ const postSchema = new Schema(
     rating: {
       type: String,
       enum: ["1", "2", "3", "4", "5"], 
-    }
-    // tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }],
-    // owner will be added later on
+    },
+    activities: [{ type: Schema.Types.ObjectId, ref: "Activity"}] 
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
