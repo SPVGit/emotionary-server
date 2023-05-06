@@ -8,7 +8,7 @@ router.get("/", (req, res, next) => {
   res.json("All good in here")
 })
 
-// GET CHAT
+// GET CHAT Firebase
 router.get("/chat", (req, res, next) => {
   res.json("Chat")
 })
