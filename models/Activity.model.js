@@ -5,7 +5,7 @@ const activitySchema = new Schema(
   {
     title: {
         type: String,
-        enum: [
+  /*      enum: [
             "physically-active",
             "avoid-alcohol",
             "quit-smoking",
@@ -16,7 +16,10 @@ const activitySchema = new Schema(
             "healthy-food",
             "socialize",
             "in-the-moment"
-        ]
+        ] */
+    },
+    chooseActivity: {
+      type: String,
     },
     level: {
       type: String,

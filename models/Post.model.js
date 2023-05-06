@@ -13,7 +13,7 @@ const postSchema = new Schema(
         "calm",
         "sad",
         "anxious",
-        "hurt",
+        "angry",
         "embarrassed",
         "depressed",
       ],

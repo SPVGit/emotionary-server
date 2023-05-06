@@ -43,7 +43,9 @@ router.get("/posts/:postId", (req, res, next) => {
   // Each Post document has `tasks` array holding `_id`s of Task documents
   // We use .populate() method to get swap the `_id`s for the actual Task documents
   Post.findById(postId)
-    .then((post) => res.status(200).json(post))
+    .populate("activities")
+    .then((post) => {res.status(200).json(post)
+    console.log("populated post with activities", post)})
     .catch((error) => res.json(error)); 
 })
 
@@ -86,4 +88,6 @@ return User.updateMany({}, {$pull: {posts: postId}})
   })
   .catch((error) => res.json(error));
 });
+
+
 module.exports = router;
