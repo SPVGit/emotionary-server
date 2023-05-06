@@ -6,12 +6,15 @@ const Post = require("../models/Post.model");
 const Activity = require("../models/Activity.model"); 
 
 // POST /addactivity - Adds new activity to Post
-router.post("/addactivity", (req, res, next) => {
-    const {} = req.body;
+router.post("/addactivity/:postId", (req, res, next) => {
+    const { postId } = req.params;
+    const {title, level, time, successRating, notes} = req.body;
+    
 
-    Activity.create({})
+    Activity.create({title, level, time, successRating, notes})
     .then((newActivity) => {
-        return Post.findByIdAndUpdate(userId, {
+        
+        return Post.findByIdAndUpdate(postId, {
             $push: { activities: newActivity._id },
         });
     })
