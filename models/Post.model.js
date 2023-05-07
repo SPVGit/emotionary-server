@@ -19,6 +19,7 @@ const postSchema = new Schema(
       ],
       required: true,
     },
+    date: String,
     description: String,
     user: {type: Schema.Types.ObjectId, ref: "User"},
     rating: {

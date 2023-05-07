@@ -7,11 +7,11 @@ const Activity = require("../models/Activity.model")
 
 //  POST /api/posts  -  Creates a new post
 router.post("/addpost", (req, res, next) => {
-  const { emotion, rating, description, userId } = req.body;
+  const { emotion, date, rating, description, userId } = req.body;
 
   console.log(req.body);
 
-  Post.create({ emotion, rating, description, user: userId })
+  Post.create({ emotion, date, rating, description, user: userId })
     .then((newPost) => {
       return User.findByIdAndUpdate(userId, {
         $push: { posts: newPost._id },
