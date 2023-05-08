@@ -11,7 +11,7 @@ router.post("/addactivity/:postId", (req, res, next) => {
     const {title, level, time, successRating, notes} = req.body;
     
 
-    Activity.create({title, level, time, successRating, notes})
+    Activity.create({title, level, time, successRating, notes, post: postId})
     .then((newActivity) => {
         
         return Post.findByIdAndUpdate(postId, {
