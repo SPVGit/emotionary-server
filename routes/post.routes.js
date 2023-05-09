@@ -55,8 +55,8 @@ router.get("/posts/:postId", (req, res, next) => {
     res.status(400).json({ message: "Specified id is not valid" });
     return;
   }
-  // Each Post document has `tasks` array holding `_id`s of Task documents
-  // We use .populate() method to get swap the `_id`s for the actual Task documents
+  // Each Post document has `activities` array holding `_id`s of Activity documents
+  // We use .populate() method to get swap the `_id`s for the actual Activity documents
   Post.findById(postId)
     .populate("activities")
     .then((post) => {

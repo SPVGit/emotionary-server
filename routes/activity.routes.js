@@ -22,4 +22,50 @@ router.post("/addactivity/:postId", (req, res, next) => {
     .catch((err) => res.json(err));
 })
 
+router.get("/posts/:postId/:activityId", (req, res, next) => {
+    const { postId, activityId } = req.params;
+    console.log("postId from get activity", postId)
+    console.log("activityId from get activity", activityId)
+  
+    if (!mongoose.Types.ObjectId.isValid(activityId)) {
+      res.status(400).json({ message: "Specified id is not valid" });
+      return;
+    }
+
+    Activity.findById(activityId)
+        .populate("post")
+        .then((activity) => {
+            res.status(200).json(activity)
+            console.log("activity populated with post", activity)
+        })
+        .catch((error) => res.json(error))
+})
+
+router.delete("/posts/:postId/:activityId", (req, res, next) => {
+    const { postId, activityId } = req.params;
+    console.log("postId from activity delete", postId)
+    console.log("activityId from activity delete", activityId)
+  
+    if (!mongoose.Types.ObjectId.isValid(`${activityId}`)) {
+      res.status(400).json({ message: "Specified id is not valid" });
+      return;
+    }
+  
+ /*   let userId = Post.user
+    console.log("userId", userId)
+    Post.findByIdAndRemove(postId)
+      .then(() => {
+        return User.updateMany({}, { $pull: { posts: postId } })
+          .then(() => {
+            res.json({
+              message: `Post with ${postId} is removed from User posts array and from Post collection successfully.`,
+            })
+          })
+          .catch((error) => {
+            res.json(error);
+          });
+      })
+      .catch((error) => res.json(error)); */
+  });
+
 module.exports = router;
