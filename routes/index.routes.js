@@ -10,7 +10,7 @@ router.get("/", (req, res, next) => {
 
 // GET CHAT
 router.get("/chat", (req, res, next) => {
-  res.json("Chat")
+  res.send("Chat")
 })
 
 // GET client
