@@ -41,31 +41,30 @@ router.get("/posts/:postId/:activityId", (req, res, next) => {
         .catch((error) => res.json(error))
 })
 
-router.delete("/posts/:postId/:activityId", (req, res, next) => {
-    const { postId, activityId } = req.params;
-    console.log("postId from activity delete", postId)
-    console.log("activityId from activity delete", activityId)
+
+    router.delete("/posts/:postId/:activityId", (req, res, next) => {
+      const { postId, activityId } = req.params;
+      console.log("postId from activity delete", postId)
+      console.log("activityId from activity delete", activityId)
+    
+      if (!mongoose.Types.ObjectId.isValid(`${activityId}`)) {
+        res.status(400).json({ message: "Specified id is not valid" });
+        return;
+      }
   
-    if (!mongoose.Types.ObjectId.isValid(`${activityId}`)) {
-      res.status(400).json({ message: "Specified id is not valid" });
-      return;
-    }
-  
- /*   let userId = Post.user
-    console.log("userId", userId)
-    Post.findByIdAndRemove(postId)
-      .then(() => {
-        return User.updateMany({}, { $pull: { posts: postId } })
-          .then(() => {
-            res.json({
-              message: `Post with ${postId} is removed from User posts array and from Post collection successfully.`,
+      Activity.findByIdAndRemove(activityId)
+        .then(()=> {
+          return Post.updateMany({}, {$pull: { activities: activityId}})
+            .then(() => {
+              message: `Activity with ${activityId} is removed`
             })
-          })
-          .catch((error) => {
-            res.json(error);
-          });
+            .catch((err)=> {
+              res.json(err)
+            })
+        })
+        .catch((err)=> {
+          res.json(err)
       })
-      .catch((error) => res.json(error)); */
   });
 
 module.exports = router;
