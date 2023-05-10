@@ -5,13 +5,13 @@ const mongoose = require("mongoose")
 // ℹ️ Sets the MongoDB URI for our app to have access to it.
 // If no env has been set, we dynamically set it to whatever the folder name was upon the creation of the app
 
-const MONGO_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/emotionary-server"
+const MONGO_URI = /*process.env.MONGODB_URI || */`mongodb+srv://aziendacreativa:${process.env.ATLAS_DB}@cluster-emotionary.qbk9bev.mongodb.net/?retryWrites=true&w=majority`
 
 mongoose
   .connect(MONGO_URI)
   .then((x) => {
     const dbName = x.connections[0].name
-    console.log(`Connected to local Mongo! Database name: "${dbName}"`)
+    console.log(`Connected to online Mongo! Database name: "${dbName}"`)
   })
   .catch((err) => {
     console.error("Error connecting to mongo: ", err)
