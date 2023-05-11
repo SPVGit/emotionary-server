@@ -26,13 +26,13 @@ const activityRouter = require("./routes/activity.routes")
 app.use("/", isAuthenticated, activityRouter)
 
 const indexRouter = require("./routes/index.routes")
-app.use("/", isAuthenticated, indexRouter)
+app.use("/", indexRouter)
 
 const chatRouter = require("./routes/chat.routes")
-app.use("/", isAuthenticated, chatRouter)
+app.use("/", isAuthenticated, isTherapistAuthenticated, chatRouter)
 
 const therapistRouter = require("./routes/therapist.routes")
-app.use("/", therapistRouter)
+app.use("/",isTherapistAuthenticated, therapistRouter)
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app)
