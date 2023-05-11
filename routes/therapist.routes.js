@@ -10,7 +10,7 @@ const { isTherapistAuthenticated } = require("../middleware/jwt.middleware.js")
 
 //Log in route
 
-router.post("/login", isTherapistAuthenticated, (req, res, next) => {
+router.post("/therapistlogin", isTherapistAuthenticated, (req, res, next) => {
   // middleware may not work -- this is a test. MOVE TO APP.JS
   const { email, password } = req.body
 
@@ -51,7 +51,7 @@ router.post("/login", isTherapistAuthenticated, (req, res, next) => {
     .catch((err) => res.status(500).json({ message: "Internal Server Error" }))
 })
 
-router.get("/verify", isAuthenticated, (req, res, next) => {
+router.get("/verify", isTherapistAuthenticated, (req, res, next) => {
   // <== CREATE NEW ROUTE
 
   // If JWT token is valid the payload gets decoded by the
