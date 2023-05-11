@@ -1,5 +1,6 @@
 const { expressjwt: jwt } = require("express-jwt")
 
+
 const isAuthenticated = jwt({
   secret: process.env.TOKEN_SECRET,
   algorithms: ["HS256"],
@@ -7,10 +8,11 @@ const isAuthenticated = jwt({
   getToken: getTokenFromHeaders,
 })
 
+
 const isTherapistAuthenticated = jwt({
   secret: process.env.THER_TOKEN,
   algorithms: ["HS256"],
-  requestProperty: "payload",
+  requestProperty: "therapistPayload",
   getToken: getTokenFromHeaders,
 })
 
