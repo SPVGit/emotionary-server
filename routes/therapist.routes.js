@@ -1,15 +1,21 @@
 const express = require("express")
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
-const { isAuthenticated } = require("./../middleware/jwt.middleware.js")
 const router = express.Router()
-const saltRounds = 10
-const mongoose = require("mongoose")
 const Therapist = require("../models/Therapist.model")
-const { isTherapistAuthenticated } = require("../middleware/jwt.middleware.js")
+const User = require("../models/User.model")
 
-//Log in route
 
+router.get("/users", (req, res, next) => {
+    console.log('monkey')
+    User.find()
+      //  .populate("posts")
+
+     
+      .then((allUsers) => {
+        console.log("allUsers", allUsers);
+        res.json(allUsers);
+      })
+      .catch((err) => res.json(err));
+  });
 
 
 module.exports = router

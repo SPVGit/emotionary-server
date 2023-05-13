@@ -8,13 +8,21 @@ const isAuthenticated = jwt({
   getToken: getTokenFromHeaders,
 })
 
+const isTherapist = (req, res, next) => {
 
-const isTherapistAuthenticated = jwt({
-  secret: process.env.THER_TOKEN,
-  algorithms: ["HS256"],
-  requestProperty: "therapistPayload",
-  getToken: getTokenFromHeaders,
-})
+  const role = req.payload.role
+
+  if (role === "therapist")
+  {
+    next()
+  }
+  else
+  {
+    console.log("this route is for therapists only.")
+    res.status(403).json("Unauthorized.")
+  }
+
+}
 
 function getTokenFromHeaders(req) {
   // Check if the token is available on the request Headers
@@ -29,5 +37,5 @@ function getTokenFromHeaders(req) {
 
 module.exports = {
   isAuthenticated,
-  isTherapistAuthenticated,
+  isTherapist
 }

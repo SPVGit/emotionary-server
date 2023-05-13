@@ -1,10 +1,9 @@
 const express = require("express");
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
-const { isAuthenticated, isTherapistAuthenticated } = require("./../middleware/jwt.middleware.js")
+const { isAuthenticated, isTherapist } = require("./../middleware/jwt.middleware.js")
 const router = express.Router();
 const saltRounds = 10;
-const mongoose = require("mongoose")
 const User = require("../models/User.model")
 const Therapist = require("../models/Therapist.model")
 
@@ -100,7 +99,7 @@ router.post('/signup', (req, res, next) => {
           const { _id, email, name } = foundUser;
           
           // Create an object that will be set as the token payload
-          const payload = { _id, email, name };
+          const payload = { _id, email, name, role: 'user' };
    
           // Create and sign the token
           const authToken = jwt.sign( 
@@ -161,10 +160,10 @@ router.post('/signup', (req, res, next) => {
           const { _id, email, name } = foundUser
   
           // Create an object that will be set as the token payload
-          const therapistPayload = { _id, email, name }
+          const payload = { _id, email, name, role:'therapist'}
   
           // Create and sign the token
-          const authTherapistToken = jwt.sign(therapistPayload , process.env.THER_TOKEN, { algorithm: "HS256", expiresIn: "6h" })
+          const authTherapistToken = jwt.sign(payload , process.env.TOKEN_SECRET, { algorithm: "HS256", expiresIn: "6h" })
   
           // Send the token as the response
           res.status(200).json({ authTherapistToken: authTherapistToken })
@@ -177,16 +176,16 @@ router.post('/signup', (req, res, next) => {
 
 
   
-  router.get("/therapistverify", isTherapistAuthenticated, (req, res, next) => {
+  router.get("/therapistverify", isAuthenticated, isTherapist, (req, res, next) => {
     // <== CREATE NEW ROUTE
   
     // If JWT token is valid the payload gets decoded by the
     // isAuthenticated middleware and made available on `req.payload`
-    console.log(`req.payload`, req.therapistPayload )
+    console.log(`req.payload`, req.payload )
   
     // Send back the object with user data
     // previously set as the token payload
-    res.status(200).json(req.therapistPayload )
+    res.status(200).json(req.payload )
   })
 
   module.exports = router;
