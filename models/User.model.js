@@ -17,6 +17,7 @@ const userSchema = new Schema(
     name: { type: String, required: true },
     posts: [{ type: Schema.Types.ObjectId, ref: "Posts" }],
     therapist: { type: Schema.Types.ObjectId, ref: "Therapist" },
+    imageUrl: String,
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
