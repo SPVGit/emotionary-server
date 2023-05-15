@@ -6,8 +6,8 @@ const express = require("express")
 const app = require("./app")
 
 const cors = require("cors")
-const { createServer } = require("http")
-const { Server } = require("socket.io")
+//const { createServer } = require("http")
+//const { Server } = require("socket.io")
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`)
