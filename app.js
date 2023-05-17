@@ -16,6 +16,15 @@ const { isAuthenticated, isTherapist } = require("./middleware/jwt.middleware")
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app)
 
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", process.env.ORIGIN);
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+  });
+
 const authRouter = require("./routes/auth.routes") //  <== IMPORT
 app.use("/auth", authRouter)
 

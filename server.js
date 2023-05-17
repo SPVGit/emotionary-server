@@ -9,14 +9,7 @@ const cors = require("cors")
 //const { createServer } = require("http")
 //const { Server } = require("socket.io")
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", process.env.ORIGIN);
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`)
