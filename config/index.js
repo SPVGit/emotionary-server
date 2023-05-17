@@ -25,7 +25,7 @@ module.exports = (app) => {
   app.use(
     cors({
       credentials: true,
-      origin: '*'
+      origin: process.env.NODE_ENV === 'production' ? [FRONTEND_URL] : '*'
     })
   );
  
