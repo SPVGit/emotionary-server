@@ -23,7 +23,8 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "multer-storage-cloudinary": "^4.0.0",
-    "react-bootstrap": "^2.7.4"
+    "react-bootstrap": "^2.7.4",
+    "socket.io": "^4.6.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

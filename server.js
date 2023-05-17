@@ -18,6 +18,53 @@ const cors = require("cors")
   next();
 });*/
 
-app.listen(PORT, () => {
+let myServer = app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`)
+})
+
+//-----------------SCOKET.IO SETUP-------------------------------
+const { Server } = require("socket.io")
+const io = new Server(myServer, {
+  cors: {
+    // withCredentials: true,
+    origin: process.env.ORIGIN,
+  },
+})
+
+//---------------------------------------------------------------
+
+//-------------------SOCKET EVENTS -----------------------------
+
+const MessageModel = require("./models/Message.model")
+
+io.on("connection", (socket) => {
+  console.log("a user connected")
+  socket.on("disconnect", () => {
+    console.log("user disconnected")
+  })
+
+  socket.on("join_chat", (data) => {
+    socket.join(data)
+    console.log("User Joined Room: " + data)
+  })
+
+  socket.on("send_message", (data) => {
+    const {
+      content: { sender, message },
+      chatId,
+    } = data
+
+    let newMessage = {
+      sender: sender._id,
+      message: message,
+      conversationId: chatId,
+    }
+
+    // As the conversation happens, keep saving the messages in the DB
+    MessageModel.create(newMessage).then(async () => {
+      //Find all messages and send it back
+      let allMessages = await MessageModel.find({ conversationId: chatId }).populate("sender")
+      socket.to(data.chatId).emit("receive_message", allMessages)
+    })
+  })
 })
