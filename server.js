@@ -1,6 +1,6 @@
 // ℹ️ Sets the PORT for our app to have access to it. If no env has been set, we hard code it to 5005
 require("dotenv").config()
-const PORT = process.env.PORT || 'https://snazzy-kitten-0f2d82.netlify.app'
+const PORT = process.env.PORT || 5005
 
 const express = require("express")
 const app = require("./app")
