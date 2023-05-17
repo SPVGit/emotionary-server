@@ -22,10 +22,23 @@ module.exports = (app) => {
   app.set("trust proxy", 1);
 
   // controls a very specific header to pass headers from the frontend
-  app.use(
+  /*app.use(
     cors({
       credentials: true,
       origin: FRONTEND_URL || 'http://localhost:3000'
+    })
+  );*/
+  app.use(
+    cors({
+      credentials: true,
+      origin: (origin, callback) => {
+        const allowedOrigins = [FRONTEND_URL, 'http://localhost:3000'];
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      }
     })
   );
 
