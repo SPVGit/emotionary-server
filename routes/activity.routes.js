@@ -5,6 +5,7 @@ const User = require("../models/User.model");
 const Post = require("../models/Post.model");
 const Activity = require("../models/Activity.model");
 
+//whatever
 // POST /addactivity - Adds new activity to Post
 router.post("/addactivity/:postId", (req, res, next) => {
   const { postId } = req.params;
