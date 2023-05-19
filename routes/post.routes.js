@@ -26,7 +26,7 @@ router.get("/posts", (req, res, next) => {
   Post.find()
     //  .populate("posts")
     .then((allPosts) => {
-      console.log("allPosts", allPosts);
+    //  console.log("allPosts", allPosts);
       res.json(allPosts);
     })
     .catch((err) => res.json(err));
@@ -105,6 +105,17 @@ router.delete("/posts/:postId", (req, res, next) => {
     })
     .catch((error) => res.json(error));
 });
+
+router.get("/stats", (req, res, next) => {
+ 
+  Post.find()
+    .then((post) => {
+      res.status(200).json(post)
+      console.log('post', post)
+    })
+    .catch((error) => res.json(error));
+ 
+}) 
 
 
 module.exports = router;
