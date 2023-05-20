@@ -1,27 +1,27 @@
-const express = require("express");
-const router = express.Router();
-const mongoose = require("mongoose");
-const User = require("../models/User.model");
-const Post = require("../models/Post.model");
+const express = require("express")
+const router = express.Router()
+const mongoose = require("mongoose")
+const User = require("../models/User.model")
+const Post = require("../models/Post.model")
 const Activity = require("../models/Activity.model")
-const fileUploader = require("../config/cloudinary.config");
-
+const fileUploader = require("../config/cloudinary.config")
+const Therapist = require("../models/Therapist.model")
 
 //  GET /User -  Retrieves user
 router.get("/profile/:userId", (req, res, next) => {
-    const { userId } = req.params
-    console.log('monkey')
-    console.log('profile params', req.params)
-    User.findById(userId)
-      //  .populate("posts")
-      .then((user) => {
-        console.log("user", user);
-        res.json(user);
-      })
-      .catch((err) => res.json(err));
-  });
+  const { userId } = req.params
+  console.log("monkey")
+  console.log("profile params", req.params)
+  User.findById(userId)
+    //  .populate("posts")
+    .then((user) => {
+      console.log("user", user)
+      res.json(user)
+    })
+    .catch((err) => res.json(err))
+})
 
-  // POST "/api/upload" => Route that receives the image, sends it to Cloudinary via the fileUploader and returns the image URL
+// POST "/api/upload" => Route that receives the image, sends it to Cloudinary via the fileUploader and returns the image URL
 /* router.post("/upload", fileUploader.single("imageUrl"), (req, res, next) => {
     // console.log("file is: ", req.file)
    
@@ -50,5 +50,17 @@ router.get("/profile/:userId", (req, res, next) => {
         })
         .catch(err => next(err))
   }); */
+
+router.get("/therapist", (req, res, next) => {
+  console.log("monkey")
+  Therapist.find()
+    //  .populate("posts")
+
+    .then((therapist) => {
+      console.log("allUsers", therapist)
+      res.json(therapist)
+    })
+    .catch((err) => res.json(err))
+})
 
 module.exports = router
