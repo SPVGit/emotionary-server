@@ -1,6 +1,6 @@
 // ℹ️ Sets the PORT for our app to have access to it. If no env has been set, we hard code it to 5005
 require("dotenv").config()
-const PORT = process.env.PORT || 5005
+const PORT = process.env.PORT || 5006
 
 const express = require("express")
 const app = require("./app")
@@ -49,15 +49,14 @@ io.on("connection", (socket) => {
   })
 
   socket.on("send_message", (data) => {
-    const {
-      content: { sender, message },
-      chatId,
-    } = data
+    const { sender, message, senderName, uniqueId, chatId } = data
 
     let newMessage = {
+      conversationId: chatId,
       sender: sender._id,
       message: message,
-      conversationId: chatId,
+      uniqueId: uniqueId,
+      senderName: senderName,
     }
 
     // As the conversation happens, keep saving the messages in the DB
