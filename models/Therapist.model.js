@@ -16,7 +16,7 @@ const therapistSchema = new Schema(
     },
     name: { type: String, required: true },
     users: [{ type: Schema.Types.ObjectId, ref: "Users" }],
-    imageUrl: String
+    imageUrl: String,
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
