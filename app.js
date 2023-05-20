@@ -32,7 +32,7 @@ const userRouter = require("./routes/user.routes")
 app.use("/", isAuthenticated, userRouter)
 
 const chatRouter = require("./routes/chat.routes")
-app.use("/", isAuthenticated, isTherapist, chatRouter)
+app.use("/", isAuthenticated, chatRouter)
 
 const therapistRouter = require("./routes/therapist.routes")
 app.use("/", isAuthenticated, isTherapist, therapistRouter)

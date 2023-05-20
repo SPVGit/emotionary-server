@@ -49,13 +49,12 @@ io.on("connection", (socket) => {
   })
 
   socket.on("send_message", (data) => {
-    const {
-      content: { sender, message },
-      chatId,
-    } = data
+    const { sender, message, uniqueId, chatId } = data
 
     let newMessage = {
       sender: sender._id,
+      uniqueId: uniqueId,
+      senderName: sender.name,
       message: message,
       conversationId: chatId,
     }
