@@ -9,6 +9,8 @@ require("./db")
 // https://www.npmjs.com/package/express
 const express = require("express")
 
+// const path = require("path")
+
 const app = express()
 
 const { isAuthenticated, isTherapist } = require("./middleware/jwt.middleware")
