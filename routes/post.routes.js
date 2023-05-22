@@ -9,8 +9,6 @@ const Post = require("../models/Post.model");
 router.post("/addpost", (req, res, next) => {
   const { emotion, date, rating, description, userId } = req.body;
 
-  console.log(req.body);
-
   Post.create({ emotion, date, rating, description, user: userId })
     .then((newPost) => {
       return User.findByIdAndUpdate(userId, {
@@ -24,9 +22,8 @@ router.post("/addpost", (req, res, next) => {
 //  GET /api/posts -  Retrieves all of the posts
 router.get("/posts", (req, res, next) => {
   Post.find()
-    //  .populate("posts")
     .then((allPosts) => {
-    //  console.log("allPosts", allPosts);
+
       res.json(allPosts);
     })
     .catch((err) => res.json(err));
@@ -61,7 +58,6 @@ router.get("/posts/:postId", (req, res, next) => {
     .populate("activities")
     .then((post) => {
       res.status(200).json(post)
-      console.log("populated post with activities", post)
     })
     .catch((error) => res.json(error));
 })
@@ -90,7 +86,7 @@ router.delete("/posts/:postId", (req, res, next) => {
   }
 
   let userId = Post.user
-  console.log("userId", userId)
+
   Post.findByIdAndRemove(postId)
     .then(() => {
       return User.updateMany({}, { $pull: { posts: postId } })
@@ -111,7 +107,7 @@ router.get("/stats", (req, res, next) => {
   Post.find()
     .then((post) => {
       res.status(200).json(post)
-      console.log('post', post)
+    
     })
     .catch((error) => res.json(error));
  

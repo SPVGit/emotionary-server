@@ -6,17 +6,10 @@ const express = require("express")
 const app = require("./app")
 
 const cors = require("cors")
-//const { createServer } = require("http")
-//const { Server } = require("socket.io")
 
-/*app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", '*' );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});*/
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 let myServer = app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`)

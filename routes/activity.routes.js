@@ -1,7 +1,6 @@
 const express = require("express")
 const router = express.Router()
 const mongoose = require("mongoose")
-const User = require("../models/User.model")
 const Post = require("../models/Post.model")
 const Activity = require("../models/Activity.model")
 
@@ -24,8 +23,6 @@ router.post("/addactivity/:postId", (req, res, next) => {
 
 router.get("/posts/:postId/:activityId", (req, res, next) => {
   const { postId, activityId } = req.params
-  console.log("postId from get activity", postId)
-  console.log("activityId from get activity", activityId)
 
   if (!mongoose.Types.ObjectId.isValid(activityId)) {
     res.status(400).json({ message: "Specified id is not valid" })
@@ -36,7 +33,7 @@ router.get("/posts/:postId/:activityId", (req, res, next) => {
     .populate("post")
     .then((activity) => {
       res.status(200).json(activity)
-      console.log("activity populated with post", activity)
+
     })
     .catch((error) => res.json(error))
 })
@@ -45,8 +42,6 @@ router.get("/posts/:postId/:activityId", (req, res, next) => {
 
 router.delete("/posts/:postId/:activityId", (req, res, next) => {
   const { postId, activityId } = req.params
-  console.log("postId from activity delete", postId)
-  console.log("activityId from activity delete", activityId)
 
   if (!mongoose.Types.ObjectId.isValid(`${activityId}`)) {
     res.status(400).json({ message: "Specified id is not valid" })
