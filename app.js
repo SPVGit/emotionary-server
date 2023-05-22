@@ -18,6 +18,9 @@ const { isAuthenticated, isTherapist } = require("./middleware/jwt.middleware")
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app)
 
+const indexRouter = require("./routes/index.routes")
+app.use("/", indexRouter)
+
 const authRouter = require("./routes/auth.routes") //  <== IMPORT
 app.use("/auth", authRouter)
 
@@ -26,9 +29,6 @@ app.use("/", isAuthenticated, postRouter)
 
 const activityRouter = require("./routes/activity.routes")
 app.use("/", isAuthenticated, activityRouter)
-
-const indexRouter = require("./routes/index.routes")
-app.use("/", indexRouter)
 
 const userRouter = require("./routes/user.routes")
 app.use("/", isAuthenticated, userRouter)
