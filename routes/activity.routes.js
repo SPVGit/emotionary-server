@@ -16,8 +16,15 @@ router.post("/addactivity/:postId", (req, res, next) => {
         $push: { activities: newActivity._id },
       })
     })
-    .then((response) => res.json(response))
-    .catch((err) => res.json({ message: " please fill up the form" }))
+    .then((response) => {
+      if (response){
+        res.json(response)
+      }
+      else{
+        res.json({ message: " please fill up the form" })
+      }
+    })
+    .catch((err) => res.status(400).json({ message: "Please complete all fields" }))
 })
 //  GET BY POST ID + ACTIVITY ID
 
