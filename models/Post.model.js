@@ -29,7 +29,7 @@ const postSchema = new Schema(
     activities: [{ type: Schema.Types.ObjectId, ref: "Activity"}] 
   },
   {
-    // this second object adds extra properties: `createdAt` and `updatedAt`
+    
     timestamps: true,
   }
 );

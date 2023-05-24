@@ -5,7 +5,8 @@ const User = require("../models/User.model");
 const Post = require("../models/Post.model");
 
 
-//  POST /api/posts  -  Creates a new post
+//  POST /posts  -  Creates a new emotion posts and sends to database
+
 router.post("/addpost", (req, res, next) => {
   const { emotion, date, rating, description, userId } = req.body;
 
@@ -19,7 +20,8 @@ router.post("/addpost", (req, res, next) => {
     .catch((err) => res.json(err));
 });
 
-//  GET /api/posts -  Retrieves all of the posts
+//  GET /posts -  Retrieves all of the emotion posts
+
 router.get("/posts", (req, res, next) => {
   Post.find()
     .then((allPosts) => {
@@ -29,14 +31,13 @@ router.get("/posts", (req, res, next) => {
     .catch((err) => res.json(err));
 });
 
-router.get('/postsbydate/:postId',(req,res,next)=>{
-  const {postId}=req.params
+router.get('/postsbydate/:postId', (req, res, next) => { //goes to emotion posts which have been made on a specific date. Accessed from the calender.
+  const { postId } = req.params
   if (!mongoose.Types.ObjectId.isValid(postId)) {
     res.status(400).json({ message: "Specified id is not valid" });
     return;
   }
-  // Each Post document has `tasks` array holding `_id`s of Task documents
-  // We use .populate() method to get swap the `_id`s for the actual Task documents
+
   Post.findById(postId)
     .then((post) => {
       res.status(200).json(post)
@@ -44,7 +45,8 @@ router.get('/postsbydate/:postId',(req,res,next)=>{
     .catch((error) => res.json(error));
 })
 
-//  GET /api/posts/:postId -  Retrieves a specific post by id
+//  GET /posts/:postId -  Retrieves a specific emotion post by id
+
 router.get("/posts/:postId", (req, res, next) => {
   const { postId } = req.params;
 
@@ -52,8 +54,10 @@ router.get("/posts/:postId", (req, res, next) => {
     res.status(400).json({ message: "Specified id is not valid" });
     return;
   }
+
   // Each Post document has `activities` array holding `_id`s of Activity documents
   // We use .populate() method to get swap the `_id`s for the actual Activity documents
+
   Post.findById(postId)
     .populate("activities")
     .then((post) => {
@@ -62,7 +66,8 @@ router.get("/posts/:postId", (req, res, next) => {
     .catch((error) => res.json(error));
 })
 
-// PUT Update Post
+// PUT is used to edit and updates Post
+
 router.put("/posts/edit/:postId", (req, res, next) => {
   const { postId } = req.params
 
@@ -85,7 +90,6 @@ router.delete("/posts/:postId", (req, res, next) => {
     return;
   }
 
-  let userId = Post.user
 
   Post.findByIdAndRemove(postId)
     .then(() => {
@@ -102,16 +106,17 @@ router.delete("/posts/:postId", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
-router.get("/stats", (req, res, next) => {
- 
+
+router.get("/stats", (req, res, next) => { //All emotion posts are sent to the stats page to display on emotion graphs via ChartJS
+
   Post.find()
     .then((post) => {
       res.status(200).json(post)
-    
+
     })
     .catch((error) => res.json(error));
- 
-}) 
+
+})
 
 
 module.exports = router;

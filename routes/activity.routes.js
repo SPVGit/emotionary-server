@@ -4,8 +4,9 @@ const mongoose = require("mongoose")
 const Post = require("../models/Post.model")
 const Activity = require("../models/Activity.model")
 
-//whatever
-// POST /addactivity - Adds new activity to Post
+
+// POST /addactivity - Adds new activity to Emotion Post
+
 router.post("/addactivity/:postId", (req, res, next) => {
   const { postId } = req.params
   const { title, level, time, successRating, notes } = req.body
@@ -26,7 +27,7 @@ router.post("/addactivity/:postId", (req, res, next) => {
     })
     .catch((err) => res.status(400).json({ message: "Please complete all fields" }))
 })
-//  GET BY POST ID + ACTIVITY ID
+//  GET an activity by post Id and activity Id
 
 router.get("/posts/:postId/:activityId", (req, res, next) => {
   const { postId, activityId } = req.params
@@ -45,7 +46,7 @@ router.get("/posts/:postId/:activityId", (req, res, next) => {
     .catch((error) => res.json(error))
 })
 
-//DELETE
+//DELETE activity
 
 router.delete("/posts/:postId/:activityId", (req, res, next) => {
   const { postId, activityId } = req.params
