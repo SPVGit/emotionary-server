@@ -4,7 +4,7 @@ const User = require("../models/User.model")
 const Therapist = require("../models/Therapist.model")
 
 
-router.get("/therapist", (req, res, next) => {
+router.get("/therapist", (req, res, next) => {  //Finds the therapist and sends it to a users chat page
 
   Therapist.find()
     .then((therapist) => {

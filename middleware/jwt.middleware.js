@@ -8,7 +8,7 @@ const isAuthenticated = jwt({
   getToken: getTokenFromHeaders,
 })
 
-const isTherapist = (req, res, next) => {
+const isTherapist = (req, res, next) => { //separates out the therapists route based on role
 
   const role = req.payload.role
 
